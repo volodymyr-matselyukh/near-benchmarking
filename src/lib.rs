@@ -1,7 +1,7 @@
-use std::{collections::HashSet, time::Instant};
+use std::collections::HashSet;
 
 // Find all our documentation at https://docs.near.org
-use near_sdk::{env, log, near, store::IterableSet};
+use near_sdk::{env, log, near, store::IterableSet, Gas};
 
 // Define the contract structure
 #[near(contract_state)]
@@ -78,10 +78,19 @@ impl Contract {
     // }
 
 
-    pub fn fill_near_1000(&mut self) {
-        for value in 1..=1_000 {
+    pub fn fill_near_1000(&mut self) -> i32 {
+        let max = self.near1000.len() as i32;
+
+        for value in max..=1_000 {
             self.near1000.insert(value);
+
+            if env::used_gas() > Gas::from_tgas(200)
+            {
+                return value;
+            }
         }
+
+        return 1000;
     }
 
     pub fn fill_native_1000(&mut self) {
@@ -90,37 +99,61 @@ impl Contract {
         }
     }
 
-    pub fn fill_near_10000(&mut self) {
-        for value in 1..=1_000 {
+    pub fn fill_near_10_000(&mut self) -> i32 {
+        let max = self.near10000.len() as i32;
+
+        log!("max {}", max);
+
+        for value in max..=10_000 {
             self.near10000.insert(value);
+
+            let used_gas = env::used_gas();
+
+            if value % 100 == 0 {
+                log!("used gas {}", used_gas);
+            }
+
+            if used_gas > Gas::from_tgas(50)
+            {
+                return value;
+            }
         }
+
+        return 10000;
     }
 
-    pub fn fill_native_10000(&mut self) {
-        for value in 1..=1_000 {
+    pub fn fill_native_10_000(&mut self) {
+        for value in 1..=10_000 {
             self.native10000.insert(value);
         }
     }
 
-    pub fn check_near_1000(&self) {
-
-        let start_timestamp = env::block_timestamp();
-        self.near1000.contains(&999);
-        let end_timestamp = env::block_timestamp();
-
-        let duration_ns = end_timestamp - start_timestamp;
-
-        log!("check_near_1000 took {} nanoseconds", duration_ns);
+    pub fn check_near_1000(&self, value: i32) {
+        self.near1000.contains(&value);
     }
 
-    pub fn check_native_1000(&self) {
-        let start_timestamp = env::block_timestamp();
-        self.native1000.contains(&999);
-        let end_timestamp = env::block_timestamp();
+    pub fn check_native_1000(&self, value: i32) {
+        self.native1000.contains(&value);
+    }
 
-        let duration_ns = end_timestamp - start_timestamp;
+    pub fn check_near_10_000(&self) {
+        log!("check_near_10_000 actual length {}", self.near10000.len());
 
-        log!("check_native_1000 took {} nanoseconds", duration_ns);
+        let value = 5000;
+        //for value in 8000..=8010 {
+            let result = self.near10000.contains(&value);
+            log!("result {} {}", result, value);
+        //}
+    }
+
+    pub fn check_native_10_000(&self) {
+        log!("check_near_10_000 actual length {}", self.native10000.len());
+
+        let value = 5000;
+        //for value in 8000..=8010 {
+            let result = self.native10000.contains(&value);
+            log!("result {} {}", result, value);
+        //}
     }
 
     pub fn add_near_1000(&mut self, value: i32) {

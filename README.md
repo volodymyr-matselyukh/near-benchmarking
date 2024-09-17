@@ -1,37 +1,38 @@
 # benchmarking
+This project is created for comparing the performance of near collections versus native collections.
 
-cargo-near-new-project-description
+# check_native_1000
+`
+near contract call-function as-transaction woozy-loaf.testnet check_native_1000 json-args '{"value": 1}' prepaid-gas '300.0 Tgas' attached-deposit '0 NEAR' sign-as woozy-loaf.testnet network-config testnet sign-with-keychain send
+`
 
-## How to Build Locally?
 
-Install [`cargo-near`](https://github.com/near/cargo-near) and run:
+# fill_near_1000
+`
+near contract call-function as-transaction woozy-loaf.testnet fill_near_1000 json-args '{}' prepaid-gas '300.0 Tgas' attached-deposit '0 NEAR' sign-as woozy-loaf.testnet network-config testnet sign-with-keychain send
+`
 
-```bash
-cargo near build
-```
+# fill_native_1000
+`
+near contract call-function as-transaction woozy-loaf.testnet fill_native_1000 json-args '{}' prepaid-gas '300.0 Tgas' attached-deposit '0 NEAR' sign-as woozy-loaf.testnet network-config testnet sign-with-keychain send
+`
 
-## How to Test Locally?
+# fill_near_10_000
+`
+near contract call-function as-transaction woozy-loaf.testnet fill_near_10_000 json-args '{}' prepaid-gas '300.0 Tgas' attached-deposit '0 NEAR' sign-as woozy-loaf.testnet network-config testnet sign-with-keychain send
+`
 
-```bash
-cargo test
-```
+# fill_native_10_000
+`
+near contract call-function as-transaction woozy-loaf.testnet fill_native_10_000 json-args '{}' prepaid-gas '300.0 Tgas' attached-deposit '0 NEAR' sign-as woozy-loaf.testnet network-config testnet sign-with-keychain send
+`
 
-## How to Deploy?
+# check_native_10_000
+`
+near contract call-function as-transaction woozy-loaf.testnet check_native_10_000 json-args '{}' prepaid-gas '300.0 Tgas' attached-deposit '0 NEAR' sign-as woozy-loaf.testnet network-config testnet sign-with-keychain send
+`
 
-Deployment is automated with GitHub Actions CI/CD pipeline.
-To deploy manually, install [`cargo-near`](https://github.com/near/cargo-near) and run:
-
-```bash
-cargo near deploy <account-id>
-```
-
-## Useful Links
-
-- [cargo-near](https://github.com/near/cargo-near) - NEAR smart contract development toolkit for Rust
-- [near CLI](https://near.cli.rs) - Iteract with NEAR blockchain from command line
-- [NEAR Rust SDK Documentation](https://docs.near.org/sdk/rust/introduction)
-- [NEAR Documentation](https://docs.near.org)
-- [NEAR StackOverflow](https://stackoverflow.com/questions/tagged/nearprotocol)
-- [NEAR Discord](https://near.chat)
-- [NEAR Telegram Developers Community Group](https://t.me/neardev)
-- NEAR DevHub: [Telegram](https://t.me/neardevhub), [Twitter](https://twitter.com/neardevhub)
+# check_near_10_000
+`
+near contract call-function as-transaction woozy-loaf.testnet check_near_10_000 json-args '{}' prepaid-gas '300.0 Tgas' attached-deposit '0 NEAR' sign-as woozy-loaf.testnet network-config testnet sign-with-keychain send
+`

@@ -1,6 +1,8 @@
 # benchmarking
 
-This project is created for comparing the performance of near collections versus native collections.
+This project is created for comparing the performance of near collections versus native rust collections.
+
+Results are here: https://docs.google.com/spreadsheets/d/1ThsBlNR6_Ol9K8cU7BRXNN73PblkTbx0VW_njrF633g/edit?usp=sharing
 
 # fill_near_100
 
